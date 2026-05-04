@@ -3,25 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello</title>
+    <title>Shlok Singh - Portfolio</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        * {
             margin: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 0;
+            box-sizing: border-box;
         }
-        h1 {
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        nav ul li {
+            margin-left: 2rem;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover {
+            color: #007bff;
+        }
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            font-size: 4em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            padding: 150px 0 100px;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: #fff;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #f8f9fa;
+        }
+        section {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+        .about, .skills, .experience, .projects, .contact {
+            background-color: #fff;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .about h2, .skills h2, .experience h2, .projects h2, .contact h2 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+        .skills ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .skills li {
+            background-color: #f8f9fa;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            border-radius: 20px;
+        }
+        .experience-item, .project-item {
+            margin-bottom: 2rem;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+        .contact form {
+            display: flex;
+            flex-direction: column;
+        }
+        .contact input, .contact textarea {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .contact button {
+            padding: 0.8rem;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .contact button:hover {
+            background-color: #5a67d8;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
         }
     </style>
 </head>
 <body>
-    <h1>hello</h1>
+    <header>
+        <nav class="container">
+            <div class="logo">Shlok Singh</div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Shlok Singh</h1>
+            <p>Professional Portfolio</p>
+            <a href="#contact" class="btn">Get In Touch</a>
+        </div>
+    </section>
+
+    <section id="about" class="about container">
+        <h2 class="section-title">About Me</h2>
+        <p>Welcome to my portfolio. I am Shlok Singh, a passionate professional dedicated to excellence in my field. With a strong background and commitment to continuous learning, I strive to deliver high-quality results in everything I do.</p>
+    </section>
+
+    <section id="skills" class="skills container">
+        <h2 class="section-title">Skills</h2>
+        <ul>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>Problem Solving</li>
+            <li>Communication</li>
+            <li>Teamwork</li>
+        </ul>
+    </section>
+
+    <section id="experience" class="experience container">
+        <h2 class="section-title">Experience</h2>
+        <div class="experience-item">
+            <h3>Position Title</h3>
+            <p><strong>Company Name</strong> | Start Date - End Date</p>
+            <p>Description of your role and achievements.</p>
+        </div>
+        <div class="experience-item">
+            <h3>Another Position</h3>
+            <p><strong>Another Company</strong> | Start Date - End Date</p>
+            <p>Description of your role and achievements.</p>
+        </div>
+    </section>
+
+    <section id="projects" class="projects container">
+        <h2 class="section-title">Projects</h2>
+        <div class="project-item">
+            <h3>Project Name</h3>
+            <p>Description of the project, technologies used, and your role.</p>
+            <a href="#" class="btn">View Project</a>
+        </div>
+        <div class="project-item">
+            <h3>Another Project</h3>
+            <p>Description of the project, technologies used, and your role.</p>
+            <a href="#" class="btn">View Project</a>
+        </div>
+    </section>
+
+    <section id="contact" class="contact container">
+        <h2 class="section-title">Contact Me</h2>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Shlok Singh. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
