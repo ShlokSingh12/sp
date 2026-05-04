@@ -1,7 +1,7 @@
 # SP Project - Process Documentation
 
 ## Project Overview
-This document details the complete process of creating and deploying the **SP** project to GitHub Pages.
+This document details the complete process of creating, updating, and deploying the **SP** portfolio project to GitHub Pages.
 
 ---
 
@@ -12,6 +12,7 @@ This document details the complete process of creating and deploying the **SP** 
 4. [Code Deployment](#code-deployment)
 5. [GitHub Pages Configuration](#github-pages-configuration)
 6. [Final Results](#final-results)
+7. [Commands Reference](#commands-reference)
 
 ---
 
@@ -23,17 +24,18 @@ This document details the complete process of creating and deploying the **SP** 
 
 ### Step 1.2: Main Website File
 **File**: `index.html`
-- Created a responsive HTML5 page
-- Displays "hello" as a centered heading
-- Includes gradient background (purple gradient: #667eea to #764ba2)
-- Styled with CSS for professional appearance
-- Fully mobile-responsive design
+- Created a responsive portfolio page for Shlok Singh
+- Includes a polished hero section with gradient background
+- Contains sections: About, Skills, Experience, Projects
+- Removed the contact section and button for a simplified layout
+- Uses clean, modern styling and responsive design
 
 **Features**:
 - Semantic HTML structure
-- Modern CSS styling with flexbox
-- Responsive meta viewport tag
-- Optimized for all screen sizes
+- Mobile-friendly layout
+- Fixed navigation bar
+- Styled section cards with soft shadows
+- Minimalist professional aesthetic
 
 ---
 
@@ -52,7 +54,7 @@ User Name: User
 ```
 
 ### Step 2.3: Repository Initialization
-- Initialized empty Git repository in SP folder
+- Initialized Git repository in SP folder
 - Created `.git` directory with proper structure
 - Set up branch naming convention
 
@@ -61,10 +63,7 @@ User Name: User
 - **Hash**: caca854
 - **Message**: "Initial commit: Add hello world"
 - **Files Included**:
-  - `index.html` (691 bytes)
-  - README.md (3058 bytes)
-  - setup-github-pages.bat (2115 bytes)
-  - setup-github-pages.ps1 (2936 bytes)
+  - `index.html`
 
 **Command Used**:
 ```powershell
@@ -91,8 +90,8 @@ cd C:\Users\Shlok.Singh\SP
 - **Created**: May 4, 2026
 
 ### Step 3.3: Repository Configuration
-- No initial README added (kept clean for push)
-- No .gitignore added initially
+- No initial README added
+- No `.gitignore` added initially
 - No LICENSE added initially
 
 ---
@@ -115,20 +114,22 @@ cd C:\Users\Shlok.Singh\SP
 
 **Reason**: GitHub changed default branch from "master" to "main"
 
-### Step 4.3: Push to GitHub
+### Step 4.3: Update and Push
 **Command**:
 ```powershell
-& $git push -u origin main
+& $git add index.html
+& $git commit -m "Update portfolio with minimalist design and sections"
+& $git push origin main
 ```
 
-**Result**: 
-- ✅ Code successfully pushed to GitHub
-- ✅ Branch: main (set as upstream)
-- ✅ All files transferred securely
+**Result**:
+- ✅ Portfolio content updated and committed
+- ✅ Latest changes pushed to GitHub
+- ✅ Remote branch: main
 
 **Verification**:
 ```
-caca854 (HEAD -> main, origin/main) Initial commit: Add hello world
+35e59c4 (HEAD -> main, origin/main) Update portfolio with minimalist design and sections
 origin  https://github.com/ShlokSingh12/sp.git (fetch)
 origin  https://github.com/ShlokSingh12/sp.git (push)
 ```
@@ -139,7 +140,6 @@ origin  https://github.com/ShlokSingh12/sp.git (push)
 
 ### Step 5.1: Access Pages Settings
 - **URL**: https://github.com/ShlokSingh12/sp/settings/pages
-- **Status**: Initially disabled
 
 ### Step 5.2: Build and Deployment Settings
 - **Source**: "Deploy from a branch"
@@ -147,17 +147,16 @@ origin  https://github.com/ShlokSingh12/sp.git (push)
 - **Folder**: / (root)
 
 ### Step 5.3: Deployment Settings
-- **Visibility**: Public (default for public repos)
+- **Visibility**: Public
 - **Custom Domain**: Not configured
-- **HTTPS**: Enforced (automatic with GitHub Pages)
+- **HTTPS**: Enforced
 
 ### Step 5.4: GitHub Pages Enabled
 **Confirmation Message**: "GitHub Pages source saved"
 
 **Result**:
-- ✅ GitHub Pages activated
-- ✅ Build process initiated
-- ✅ Site URL: https://shloksingh12.github.io/sp
+- ✅ GitHub Pages active
+- ✅ Live site URL: https://shloksingh12.github.io/sp
 
 ---
 
@@ -167,10 +166,7 @@ origin  https://github.com/ShlokSingh12/sp.git (push)
 ```
 SP/
 ├── .git/                      # Git repository data
-├── index.html                 # Main website (691 bytes)
-├── README.md                  # Documentation (3058 bytes)
-├── setup-github-pages.bat     # Windows batch setup script
-├── setup-github-pages.ps1     # PowerShell setup script
+├── index.html                 # Portfolio website
 └── PROCESS.md                 # This file
 ```
 
@@ -178,20 +174,19 @@ SP/
 - **Local Path**: C:\Users\Shlok.Singh\SP
 - **Remote**: https://github.com/ShlokSingh12/sp
 - **Branch**: main
-- **Commits**: 2 (Initial + Process documentation)
+- **Commits**: 2 (Initial + portfolio update)
 
 ### 6.3: GitHub Pages Status
-- **Status**: ✅ Active and deploying
+- **Status**: ✅ Active
 - **Public URL**: https://shloksingh12.github.io/sp
-- **Expected Deployment Time**: 1-2 minutes
 - **HTTPS**: Enabled and enforced
 
 ### 6.4: Website Features
-- Professional gradient background
-- Centered "hello" heading
-- Responsive design (works on mobile, tablet, desktop)
-- Fast loading time
-- SEO-friendly HTML5 structure
+- Minimalist portfolio layout
+- Hero section with gradient background
+- About, Skills, Experience, and Projects sections
+- Removed contact section for simplicity
+- Responsive design for desktop and mobile
 
 ---
 
@@ -209,14 +204,21 @@ git config --global user.name "User"
 # Stage files
 git add .
 
-# Create commit
+git add index.html
+
+# Create commits
 git commit -m "Initial commit: Add hello world"
+git commit -m "Update portfolio with minimalist design and sections"
 
 # Add remote
 git remote add origin https://github.com/ShlokSingh12/sp.git
 
 # Rename branch
 git branch -M main
+
+# Push changes
+git push origin main
+```
 
 # Push to GitHub
 git push -u origin main

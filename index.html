@@ -55,18 +55,29 @@
             color: #007bff;
         }
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: url('image.png') center center / cover no-repeat;
             color: white;
             padding: 150px 0 100px;
             text-align: center;
         }
         .hero h1 {
             font-size: 3rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .hero a.hero-link {
+            color: white;
+            text-decoration: none;
+        }
+        .hero a.hero-link:hover {
+            text-decoration: underline;
         }
         .hero p {
             font-size: 1.2rem;
-            margin-bottom: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .hero .role {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
         .btn {
             display: inline-block;
@@ -155,16 +166,15 @@
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <section class="hero">
         <div class="container">
-            <h1>Shlok Singh</h1>
-            <p>Professional Portfolio</p>
-            <a href="#contact" class="btn">Get In Touch</a>
+            <h1><a href="resume.html" target="_blank" class="hero-link">Shlok Kumar Singh</a></h1>
+            <p>Senior Implementation Specialist</p>
+            <p class="role">Delivering high-quality implementation solutions with strong technical and client-facing expertise.</p>
         </div>
     </section>
 
@@ -211,16 +221,6 @@
             <p>Description of the project, technologies used, and your role.</p>
             <a href="#" class="btn">View Project</a>
         </div>
-    </section>
-
-    <section id="contact" class="contact container">
-        <h2 class="section-title">Contact Me</h2>
-        <form>
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
     </section>
 
     <footer>
