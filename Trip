@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Europe Trip — Prep Tracker</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap');
+
+:root{
+  --navy: #122437;
+  --navy-2: #1c3a52;
+  --paper: #f2efe6;
+  --card: #fffdf8;
+  --ink: #1b1e24;
+  --muted: #6b7280;
+  --line: #dcd6c6;
+  --teal: #2f6f62;
+  --teal-soft: #e3ece9;
+  --mustard: #c8930f;
+  --mustard-soft: #f3e8cc;
+  --rust: #b6502e;
+  --rust-soft: #f3e0d6;
+  --radius: 10px;
+}
+
+*{ box-sizing: border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Work Sans', sans-serif;
+  padding: 0 0 48px 0;
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+  color: #f4f1e8;
+  padding: 30px 28px 26px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(244,241,232,0.06) 1px, transparent 1px);
+  background-size: 14px 14px;
+  pointer-events: none;
+}
+.hero-top{
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  position: relative;
+  flex-wrap: wrap;
+}
+.hero-title{
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: clamp(26px, 4.5vw, 38px);
+  line-height: 1.05;
+  margin: 0 0 6px 0;
+  letter-spacing: 0.2px;
+}
+.hero-sub{
+  font-size: 13.5px;
+  color: #cfd6da;
+  margin: 0;
+  max-width: 46ch;
+}
+.readiness{
+  text-align: right;
+  flex-shrink: 0;
+}
+.readiness .num{
+  font-family: 'Fraunces', serif;
+  font-size: 46px;
+  font-weight: 600;
+  line-height: 1;
+}
+.readiness .lbl{
+  font-size: 11.5px;
+  color: #b9c3c9;
+  margin-top: 2px;
+}
+
+/* route line */
+.route{
+  margin-top: 26px;
+  position: relative;
+}
+.route-track{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.route-track .bar{
+  position:absolute;
+  left: 14px; right: 14px; top: 9px;
+  height: 2px;
+  background: rgba(244,241,232,0.22);
+}
+.route-track .bar-fill{
+  position:absolute;
+  left: 14px; top: 9px;
+  height: 2px;
+  background: #e0b654;
+}
+.stop{
+  position: relative;
+  z-index: 1;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  min-width: 60px;
+}
+.stop .dot{
+  width: 19px; height: 19px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 2px solid rgba(244,241,232,0.35);
+}
+.stop.done .dot{ background: #e0b654; border-color: #e0b654; }
+.stop .code{ font-size: 12px; letter-spacing: 0.5px; color: #dfe3e2; font-weight: 600; }
+.stop .code-input{
+  width: 62px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  font-family: 'Work Sans', sans-serif;
+  color: #12242f;
+  background: #e0b654;
+  border: none;
+  border-radius: 20px;
+  padding: 2px 4px;
+  text-transform: uppercase;
+}
+.stop .code-input::placeholder{ color: #6b5a28; opacity: 0.8; text-transform: none; letter-spacing: 0; }
+.stop.editable .dot{ border-style: dashed; }
+
+/* ---------- LAYOUT ---------- */
+.wrap{
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 26px 20px 0;
+}
+.section{
+  margin-bottom: 22px;
+}
+.section-head{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.section-head h2{
+  font-family: 'Fraunces', serif;
+  font-weight: 600;
+  font-size: 19px;
+  margin: 0;
+  color: var(--navy);
+}
+.section-count{
+  font-size: 12.5px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.progress-track{
+  height: 6px;
+  border-radius: 4px;
+  background: var(--line);
+  overflow: hidden;
+  display:flex;
+  margin-bottom: 14px;
+}
+.progress-track span{ height: 100%; display:block; }
+
+.card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.task{
+  display:flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.task:last-child{ border-bottom: none; }
+
+.pill{
+  flex-shrink:0;
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  padding:0;
+  position: relative;
+}
+.pill.completed{ background: var(--teal); }
+.pill.partial{ background: var(--mustard); }
+.pill.pending{ background: var(--rust); opacity: 0.85; }
+.pill:hover{ transform: scale(1.12); }
+
+.task-main{ flex: 1; min-width: 0; }
+.task-name{
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.task-name.tbd{ color: var(--muted); font-style: italic; }
+.task-date{
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 1px;
+}
+.task-date.unset{ font-style: italic; color: #a9a49a; }
+.updated-at{
+  font-size: 10.5px;
+  color: #a9a49a;
+  margin-top: 1px;
+}
+.status-select{
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 22px 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 9px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 6'><path d='M0 0 L5 6 L10 0 Z' fill='%23888'/></svg>");
+}
+.status-select.completed{ background-color: var(--teal-soft); color: var(--teal); }
+.status-select.partial{ background-color: var(--mustard-soft); color: var(--mustard); }
+.status-select.pending{ background-color: var(--rust-soft); color: var(--rust); }
+
+.chip{
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+  margin-left: 6px;
+}
+.chip.overdue{ background: #f3d6d0; color: #9c3b1e; }
+.chip.soon{ background: var(--mustard-soft); color: var(--mustard); }
+.chip.ok{ background: #eceae0; color: var(--muted); }
+
+.right-group{ display:flex; align-items:center; gap:6px; flex-shrink:0; }
+
+.hint{
+  font-size: 12px;
+  color: var(--muted);
+  margin: 8px 2px 0;
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-top">
+    <div>
+      <p class="hero-sub" style="margin-bottom:4px; text-transform:none; color:#e0b654; font-weight:600; font-size:12.5px;">Bengaluru → Amsterdam → Belgium → Poland → Vienna → Bengaluru</p>
+      <h1 class="hero-title">Trip Prep Tracker</h1>
+      <p class="hero-sub">Everything to book, print and pack before wheels‑up on 22 September.</p>
+    </div>
+    <div class="readiness">
+      <div class="num" id="readinessNum">–</div>
+      <div class="lbl">ready</div>
+    </div>
+  </div>
+
+  <div class="route">
+    <div class="route-track" id="routeTrack">
+      <div class="bar"></div>
+      <div class="bar-fill" id="routeFill"></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="section" data-section="itinerary">
+    <div class="section-head">
+      <h2>Transport &amp; Stays</h2>
+      <span class="section-count" data-count></span>
+    </div>
+    <div class="progress-track" data-bar></div>
+    <div class="card" data-list></div>
+  </div>
+
+  <div class="section" data-section="documents">
+    <div class="section-head">
+      <h2>Documents &amp; Essentials</h2>
+      <span class="section-count" data-count></span>
+    </div>
+    <div class="progress-track" data-bar></div>
+    <div class="card" data-list></div>
+  </div>
+
+  <div class="section" data-section="packing">
+    <div class="section-head">
+      <h2>Packing</h2>
+      <span class="section-count" data-count></span>
+    </div>
+    <div class="progress-track" data-bar></div>
+    <div class="card" data-list></div>
+  </div>
+
+  <div class="section" data-section="final">
+    <div class="section-head">
+      <h2>Final Checks</h2>
+      <span class="section-count" data-count></span>
+    </div>
+    <div class="progress-track" data-bar></div>
+    <div class="card" data-list></div>
+  </div>
+
+  <p class="hint">Use the status dropdown on any task to update it — changes save instantly and the readiness score, progress bars and countdowns update live.</p>
+
+</div>
+
+<script>
+const TASKS = [
+  // ---------- ITINERARY ----------
+  { id:"it1", section:"itinerary", name:"Flight to Amsterdam", status:"completed", date:"22 Sep" },
+  { id:"it2", section:"itinerary", name:"Amsterdam Stay", status:"completed", date:"22 Sep – 29 Sep" },
+  { id:"it3", section:"itinerary", name:"Amsterdam → Belgium Train", status:"pending", final:"4 Sep" },
+  { id:"it4", section:"itinerary", name:"Belgium → Amsterdam Train", status:"pending", final:"4 Sep" },
+  { id:"it5", section:"itinerary", name:"Amsterdam → Poland Flight", status:"completed", date:"29 Sep – 4 Oct" },
+  { id:"it6", section:"itinerary", name:"Poland Stay", status:"completed", date:"29 Sep – 4 Oct" },
+  { id:"it7", section:"itinerary", name:"Poland → next stop", template:(d)=>`Poland → ${d}`, status:"pending", final:"4 Sep", tbd:true },
+  { id:"it8", section:"itinerary", name:"Stay at next stop", template:(d)=>`${d} Stay`, status:"pending", final:"4 Sep", tbd:true },
+  { id:"it9", section:"itinerary", name:"Onward to Vienna (flight/bus)", template:(d)=>`${d} → Vienna (flight/bus)`, status:"pending", final:"4 Sep", tbd:true },
+  { id:"it10", section:"itinerary", name:"Vienna Stay", status:"pending", final:"1 Sep" },
+  { id:"it11", section:"itinerary", name:"Vienna → Bangalore Flight", status:"pending", final:"1 Sep" },
+
+  // ---------- DOCUMENTS ----------
+  { id:"doc1", section:"documents", name:"Passport", status:"completed" },
+  { id:"doc2", section:"documents", name:"Visa — print", status:"pending", final:"18 Sep" },
+  { id:"doc3", section:"documents", name:"Health Insurance — print", status:"pending", final:"18 Sep" },
+  { id:"doc4", section:"documents", name:"Flight Tickets — print", status:"pending", final:"18 Sep" },
+  { id:"doc5", section:"documents", name:"Hotel Booking — print", status:"pending", final:"18 Sep" },
+  { id:"doc6", section:"documents", name:"Train Ticket — print", status:"pending", final:"18 Sep" },
+  { id:"doc7", section:"documents", name:"Currency Exchange", status:"pending", final:"18 Sep" },
+  { id:"doc8", section:"documents", name:"Credit Card", status:"pending", final:"18 Sep" },
+  { id:"doc9", section:"documents", name:"International Roaming SIM", status:"pending", final:"20 Sep" },
+
+  // ---------- PACKING ----------
+  { id:"pk1", section:"packing", name:"Medicines", status:"pending", final:"20 Sep" },
+  { id:"pk2", section:"packing", name:"Travel Trolley Bag", status:"pending", final:"11 Sep" },
+  { id:"pk3", section:"packing", name:"Anti‑theft Cross‑body Bag", status:"pending", final:"2 Sep" },
+  { id:"pk4", section:"packing", name:"Coat / Blazer", status:"partial", final:"2 Sep" },
+  { id:"pk5", section:"packing", name:"Formals", status:"partial", final:"5 Sep" },
+  { id:"pk6", section:"packing", name:"Thermals", status:"partial", final:"5 Sep" },
+  { id:"pk7", section:"packing", name:"Shoes", status:"partial", final:"5 Sep" },
+  { id:"pk8", section:"packing", name:"Slippers", status:"partial", final:"5 Sep" },
+  { id:"pk9", section:"packing", name:"Ready-to-eat Foods", status:"pending", final:"18 Sep" },
+
+  // ---------- FINAL CHECKS ----------
+  { id:"fc1", section:"final", name:"All Packing Done", status:"pending", final:"19 Sep" },
+  { id:"fc2", section:"final", name:"Final Checklist Verification", status:"pending", final:"18 Sep" },
+  { id:"fc3", section:"final", name:"Pre-flight Check", status:"pending", final:"20 Sep" },
+];
+
+const STATUS_LABEL = { pending: "Pending", partial: "Partial", completed: "Done" };
+const STATUS_OPTIONS = ["pending","partial","completed"];
+const YEAR = 2026;
+const MONTHS = { jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11 };
+
+let nextStopName = null; // e.g. "Vienna" leg's mystery destination between Poland and Vienna
+
+const ROUTE = [
+  { code:"BLR", done:true },
+  { code:"AMS", done:true },
+  { code:"BRU", done:false },
+  { code:"POL", done:true },
+  { code:"__DEST__", done:false, editable:true },
+  { code:"VIE", done:false },
+  { code:"BLR", done:false },
+];
+
+function loadDestination(){
+  const val = localStorage.getItem("meta:nextStop");
+  if(val) nextStopName = val;
+}
+
+function saveDestination(name){
+  nextStopName = name || null;
+  if(nextStopName) localStorage.setItem("meta:nextStop", nextStopName);
+  else localStorage.removeItem("meta:nextStop");
+}
+
+function renderRoute(){
+  const track = document.getElementById("routeTrack");
+  track.querySelectorAll(".stop").forEach(el => el.remove());
+
+  ROUTE.forEach(stop => {
+    const el = document.createElement("div");
+    el.className = "stop" + (stop.done ? " done" : "") + (stop.editable ? " editable" : "");
+
+    const dot = document.createElement("div");
+    dot.className = "dot";
+    el.appendChild(dot);
+
+    if(stop.editable){
+      const input = document.createElement("input");
+      input.className = "code-input";
+      input.placeholder = "+ Add stop";
+      input.maxLength = 16;
+      input.value = nextStopName || "";
+      input.addEventListener("keydown", (e) => { if(e.key === "Enter") input.blur(); });
+      input.addEventListener("blur", (e) => {
+        const val = e.target.value.trim();
+        saveDestination(val);
+        render();
+      });
+      el.appendChild(input);
+    } else {
+      const code = document.createElement("div");
+      code.className = "code";
+      code.textContent = stop.code;
+      el.appendChild(code);
+    }
+    track.appendChild(el);
+  });
+}
+
+function parseFinal(str){
+  if(!str) return null;
+  const m = str.trim().toLowerCase().match(/(\d+)\w*\s+([a-z]{3})/);
+  if(!m) return null;
+  const day = parseInt(m[1],10);
+  const month = MONTHS[m[2]];
+  if(month === undefined) return null;
+  return new Date(YEAR, month, day);
+}
+
+function daysDiffLabel(finalStr){
+  const d = parseFinal(finalStr);
+  if(!d) return null;
+  const today = new Date();
+  const t0 = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const diff = Math.round((d - t0) / 86400000);
+  if(diff < 0) return { text: `${Math.abs(diff)}d overdue`, cls: "overdue" };
+  if(diff === 0) return { text: "Due today", cls: "overdue" };
+  if(diff <= 3) return { text: `${diff}d left`, cls: "soon" };
+  return { text: `by ${finalStr}`, cls: "ok" };
+}
+
+function loadStatuses(){
+  TASKS.forEach(t => {
+    const raw = localStorage.getItem(`task:${t.id}`);
+    if(!raw) return;
+    try{
+      const parsed = JSON.parse(raw);
+      t.status = parsed.status;
+      t.updatedAt = parsed.updatedAt;
+    }catch(e){ t.status = raw; }
+  });
+}
+
+function saveStatus(t){
+  const payload = { status: t.status, updatedAt: Date.now() };
+  t.updatedAt = payload.updatedAt;
+  localStorage.setItem(`task:${t.id}`, JSON.stringify(payload));
+}
+
+function relativeTime(ts){
+  if(!ts) return null;
+  const diffSec = Math.round((Date.now() - ts) / 1000);
+  if(diffSec < 10) return "just now";
+  if(diffSec < 60) return `${diffSec}s ago`;
+  const diffMin = Math.round(diffSec/60);
+  if(diffMin < 60) return `${diffMin}m ago`;
+  const diffHr = Math.round(diffMin/60);
+  if(diffHr < 24) return `${diffHr}h ago`;
+  const diffDay = Math.round(diffHr/24);
+  return `${diffDay}d ago`;
+}
+
+function render(){
+  renderRoute();
+  const sections = ["itinerary","documents","packing","final"];
+  let totalWeight = 0, totalDone = 0;
+
+  sections.forEach(sec => {
+    const el = document.querySelector(`.section[data-section="${sec}"]`);
+    const list = el.querySelector("[data-list]");
+    const countEl = el.querySelector("[data-count]");
+    const barEl = el.querySelector("[data-bar]");
+    const items = TASKS.filter(t => t.section === sec);
+
+    list.innerHTML = "";
+    let done=0, partial=0, pending=0;
+
+    items.forEach(t => {
+      if(t.status==="completed") done++;
+      else if(t.status==="partial") partial++;
+      else pending++;
+
+      const row = document.createElement("div");
+      row.className = "task";
+
+      const pill = document.createElement("span");
+      pill.className = `pill ${t.status}`;
+      pill.title = STATUS_LABEL[t.status];
+
+      const main = document.createElement("div");
+      main.className = "task-main";
+      const nameEl = document.createElement("div");
+      const showTbd = t.tbd && !nextStopName;
+      const displayName = t.template ? t.template(nextStopName || "next stop") : t.name;
+      nameEl.className = "task-name" + (showTbd ? " tbd" : "");
+      nameEl.textContent = displayName + (showTbd ? "  (destination TBD)" : "");
+      main.appendChild(nameEl);
+
+      const dateEl = document.createElement("div");
+      dateEl.className = "task-date" + (t.date ? "" : " unset");
+      dateEl.textContent = t.date ? t.date : "Not booked yet";
+      main.appendChild(dateEl);
+
+      const rel = relativeTime(t.updatedAt);
+      if(rel){
+        const updEl = document.createElement("div");
+        updEl.className = "updated-at";
+        updEl.textContent = `Updated ${rel}`;
+        main.appendChild(updEl);
+      }
+
+      const rightGroup = document.createElement("div");
+      rightGroup.className = "right-group";
+
+      const select = document.createElement("select");
+      select.className = `status-select ${t.status}`;
+      STATUS_OPTIONS.forEach(opt => {
+        const o = document.createElement("option");
+        o.value = opt;
+        o.textContent = STATUS_LABEL[opt];
+        if(opt === t.status) o.selected = true;
+        select.appendChild(o);
+      });
+      select.onchange = (e) => {
+        t.status = e.target.value;
+        saveStatus(t);
+        render();
+      };
+      rightGroup.appendChild(select);
+
+      if(t.status !== "completed" && t.final){
+        const dl = daysDiffLabel(t.final);
+        if(dl){
+          const chip = document.createElement("span");
+          chip.className = `chip ${dl.cls}`;
+          chip.textContent = dl.text;
+          rightGroup.appendChild(chip);
+        }
+      }
+
+      row.appendChild(pill);
+      row.appendChild(main);
+      row.appendChild(rightGroup);
+      list.appendChild(row);
+    });
+
+    const total = items.length;
+    countEl.textContent = `${done}/${total} done`;
+    barEl.innerHTML = "";
+    if(total>0){
+      const mk = (n,color)=>{ if(n<=0) return; const s=document.createElement("span"); s.style.width=`${(n/total)*100}%`; s.style.background=color; barEl.appendChild(s); };
+      mk(done, "var(--teal)");
+      mk(partial, "var(--mustard)");
+      mk(pending, "var(--line)");
+    }
+
+    totalWeight += total;
+    totalDone += done + partial*0.5;
+  });
+
+  const pct = totalWeight ? Math.round((totalDone/totalWeight)*100) : 0;
+  document.getElementById("readinessNum").textContent = pct + "%";
+  document.getElementById("routeFill").style.width = `calc(${pct}% - 0px)`;
+}
+
+(function init(){
+  loadStatuses();
+  loadDestination();
+  render();
+  setInterval(render, 30000); // keep countdowns & "updated" times live
+})();
+</script>
+
+</body>
+</html>
